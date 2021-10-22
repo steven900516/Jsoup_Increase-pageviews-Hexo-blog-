@@ -1,3 +1,5 @@
+package blog;
+
 import org.jsoup.nodes.Document;
 
 import java.util.ArrayList;

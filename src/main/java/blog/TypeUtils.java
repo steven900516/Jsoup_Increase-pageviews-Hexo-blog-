@@ -1,27 +1,30 @@
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.jsoup.Connection;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
+package blog;
 
-
-import java.net.InetSocketAddress;
-import java.net.Proxy;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-/**
-@author Steven0516
-@create 2021-08-18
-*/public class Spider {
-    private static Log logger = LogFactory.getLog(Spider.class);
+import java.util.Scanner;
 
+/**
+ * @author Steven0516
+ * @create 2021-08-18
+ */
+public class TypeUtils {
+    private static Scanner in = new Scanner(System.in);
     private static List<String> list = new ArrayList<String>();
 
-    /**
-     * 随机获取一个Ip地址
-     * @return
-     */
+    public static String url(){
+        System.out.println("请输入Hexo 博客链接（首页url）:");
+        String next = in.next();
+        return next;
+    }
+
+    public static String getIn(){
+        String next = in.next();
+        return next;
+    }
+
+
     public static String[] getRandomIp() {
         if (list.size() == 0) {
             list.add("47.111.56.178:80");
@@ -56,24 +59,4 @@ import java.util.Random;
         return list.get(n).split(":");
     }
 
-    /**
-     * Jsoup打开连接地址获取Document对象
-     * @param url
-     * @return
-     */
-    public static Document getDocument(String url) {
-        try {
-            Connection conn = Jsoup.connect(url).ignoreContentType(true).ignoreHttpErrors(true).userAgent("Mozilla");
-            // 设置代理
-            String ip[] = Spider.getRandomIp();
-            Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress("127.0.0.1", 8090));
-            conn.proxy(proxy);
-            // 设置超时时间并获取Document对象
-            Document document = conn.timeout(8000).get();
-
-        } catch (Exception e) {
-            logger.error("抓取失败...");
-        }
-        return null;
-    }
 }
